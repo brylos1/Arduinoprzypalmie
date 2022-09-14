@@ -1,0 +1,45 @@
+﻿<Properties StartupConfiguration="{32ACB2B0-C0BB-40F5-9E88-4D8F1DCAC6D2}|Default">
+  <MonoDevelop.Ide.ItemProperties.OdczytDanych PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TemperaturyAPI/Database/MysqlDbContext.cs">
+    <Files>
+      <File FileName="OdczytDanych/Program.cs" Line="40" Column="33" />
+      <File FileName="OdczytDanych/entities/MyDbContext.cs" Line="16" Column="1" />
+      <File FileName="OdczytDanych/entities/temperatury.cs" Line="10" Column="54" />
+      <File FileName="OdczytDanych/ConwertTableToTemperatura.cs" Line="19" Column="62" />
+      <File FileName="OdczytDanych/Odczytzpliku.cs" Line="24" Column="1" />
+      <File FileName="OdczytDanych/MyDatabaseOperation.cs" Line="1" Column="1" />
+      <File FileName="OdczytDanych/SerialPortConnector.cs" Line="32" Column="6" />
+      <File FileName="OdczytDanych/Migrations/20220914121726_create.cs" Line="1" Column="1" />
+      <File FileName="TemperaturyAPI/Program.cs" Line="1" Column="1" />
+      <File FileName="TemperaturyAPI/Models/DaneZPalmyModel.cs" Line="14" Column="1" />
+      <File FileName="TemperaturyAPI/Controllers/PalmaController.cs" Line="43" Column="1" />
+      <File FileName="TemperaturyAPI/Database/MysqlDbContext.cs" Line="14" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ObsługaArduinoPrzyPalmie" expanded="True">
+            <Node name="OdczytDanych" expanded="True">
+              <Node name="entities" expanded="True" />
+            </Node>
+            <Node name="TemperaturyAPI" expanded="True">
+              <Node name="Database" expanded="True">
+                <Node name="MysqlDbContext.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.TemperaturyAPI PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
