@@ -26,7 +26,18 @@ namespace TemperaturyAPI.Controllers
             var Temperatury = _Db.temperaturies.ToList();
             return Ok(Temperatury);
         }
-        
+        [HttpGet("between")]
+        public ActionResult<IEnumerable<DaneZPalmyModel>> GetBetween(DateTime startdate,DateTime stopday)
+        {
+            
+            IQueryable Temperatury = _Db.temperaturies.Where(t => t.DataPomiaru >= stopday && t.DataPomiaru <= startdate);
+            if(Temperatury is null)
+            {
+                return NotFound();
+            }
+            return Ok(Temperatury);
+        }
+
     }
 }
 
