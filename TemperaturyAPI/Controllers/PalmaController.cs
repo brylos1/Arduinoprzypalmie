@@ -100,7 +100,7 @@ namespace TemperaturyAPI.Controllers
         [Route("ostatni")]
         public ActionResult<DaneZPalmyModel> GetOstatni()
         {
-            DaneZPalmyModel Temperatury = _Db.temperaturies.OrderByDescending(t => t.DataPomiaru).FirstOrDefault();
+            DaneZPalmyModel? Temperatury = _Db.temperaturies.OrderByDescending(t => t.DataPomiaru).FirstOrDefault();
             return Ok(Temperatury);
         }
 
