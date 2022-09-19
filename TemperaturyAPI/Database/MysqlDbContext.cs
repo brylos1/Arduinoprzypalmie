@@ -10,6 +10,7 @@ namespace TemperaturyAPI.Database
         {
         }
         public DbSet<DaneZPalmyModel> temperaturies { get; set; }
+        public DbSet<SrednieTemperaturyModel> srednieTemperatury { get; set; }
     }
 }
 

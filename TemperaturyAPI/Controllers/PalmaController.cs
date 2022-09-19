@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TemperaturyAPI.Database;
 using TemperaturyAPI.Models;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TemperaturyAPI.Controllers
 {
@@ -19,22 +18,89 @@ namespace TemperaturyAPI.Controllers
         {
             _Db = mysqlDbContext;
         }
+        // /api/Palma/all
         [HttpGet]
         [Route("all")]
-        public ActionResult< IEnumerable<DaneZPalmyModel>> GetAll()
+        public ActionResult< IQueryable<DaneZPalmyModel>> GetAll()
         {
             var Temperatury = _Db.temperaturies.ToList();
             return Ok(Temperatury);
         }
+        // /api/Palma/between?enddate={Data końca przedziału w formacie yyyy-mm-ddThh:mm:ss}&startdate={Data początku przedziału w formacie yyyy-mm-ddThh:mm:ss}
         [HttpGet("between")]
-        public ActionResult<IEnumerable<DaneZPalmyModel>> GetBetween(DateTime startdate,DateTime stopday)
+        public ActionResult<IQueryable<DaneZPalmyModel>> GetBetween(DateTime enddate,DateTime startdate)
         {
             
-            IQueryable Temperatury = _Db.temperaturies.Where(t => t.DataPomiaru >= stopday && t.DataPomiaru <= startdate);
+            IQueryable Temperatury = _Db.temperaturies.Where(t => t.DataPomiaru >= startdate && t.DataPomiaru <= enddate);
             if(Temperatury is null)
             {
                 return NotFound();
             }
+            return Ok(Temperatury);
+        }
+        // /api/Palma/grzanie
+        [HttpGet]
+        [Route("grzanie")]
+        public ActionResult<IQueryable<DaneZPalmyModel>> GetGrzanieAll()
+        {
+            IQueryable Temperatury = _Db.temperaturies.Where(t=> t.CzyGrzanieZalaczone==true);
+            return Ok(Temperatury);
+        }
+        // /api/Palma/grzanie/between?enddate={Data końca przedziału w formacie yyyy-mm-ddThh:mm:ss}&startdate={Data początku przedziału w formacie yyyy-mm-ddThh:mm:ss}
+        [HttpGet]
+        [Route("grzanie/between")]
+        public ActionResult<IQueryable<DaneZPalmyModel>> GetGrzanieBetween(DateTime startdate, DateTime enddate)
+        {
+            IQueryable Temperatury = _Db.temperaturies.Where(t => t.DataPomiaru >= startdate && t.DataPomiaru <= enddate && t.CzyGrzanieZalaczone == true);
+            if (Temperatury is null)
+            {
+                return NotFound();
+            }
+            return Ok(Temperatury);
+        }
+        // /api/Palma/bezgrzania
+        [HttpGet]
+        [Route("bezgrzania")]
+        public ActionResult<IQueryable<DaneZPalmyModel>> GetBezGrzaniaAll()
+        {
+            IQueryable Temperatury = _Db.temperaturies.Where(t => t.CzyGrzanieZalaczone == false);
+            return Ok(Temperatury);
+        }
+        // /api/Palma/bezgrzania/between?enddate={Data końca przedziału w formacie yyyy-mm-ddThh:mm:ss}&startdate={Data początku przedziału w formacie yyyy-mm-ddThh:mm:ss}
+        [HttpGet]
+        [Route("bezgrzania/between")]
+        public ActionResult<IQueryable<DaneZPalmyModel>> GetBezGrzanieBetween(DateTime startdate, DateTime enddate)
+        {
+
+            IQueryable Temperatury = _Db.temperaturies.Where(t => t.DataPomiaru >= startdate && t.DataPomiaru <= enddate && t.CzyGrzanieZalaczone == false);
+            if (Temperatury is null)
+            {
+                return NotFound();
+            }
+            return Ok(Temperatury);
+        }
+        // /api/Palma/srednia
+        [HttpGet]
+        [Route("srednia")]
+        public ActionResult<IQueryable<SrednieTemperaturyModel>> GetSredniaAll()
+        {
+            IQueryable Temperatury = _Db.srednieTemperatury.FromSqlRaw("SELECT * FROM temperatury.srednieTemperatury").AsQueryable();
+            return Ok(Temperatury);
+        }
+        // /api/Palma/srednia/between?enddate={Data końca przedziału w formacie yyyy-mm-dd}&startdate={Data początku przedziału w formacie yyyy-mm-dd}
+        [HttpGet]
+        [Route("srednia/between")]
+        public ActionResult<IQueryable<SrednieTemperaturyModel>> GetSredniaBetween(DateTime startdate, DateTime enddate)
+        {
+            IQueryable Temperatury = _Db.srednieTemperatury.FromSqlRaw("SELECT * FROM temperatury.srednieTemperatury").Where(st=>st.DataPomiaru>=DateOnly.FromDateTime(startdate)&&st.DataPomiaru<=DateOnly.FromDateTime(enddate)).AsQueryable();
+            return Ok(Temperatury);
+        }
+        // /api/Palma/ostatni
+        [HttpGet]
+        [Route("ostatni")]
+        public ActionResult<DaneZPalmyModel> GetOstatni()
+        {
+            DaneZPalmyModel Temperatury = _Db.temperaturies.OrderByDescending(t => t.DataPomiaru).FirstOrDefault();
             return Ok(Temperatury);
         }
 
