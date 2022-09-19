@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E5A611C1-2200-406F-BEAC-C81252EED877}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		ObsługaArduinoPrzyPalmie.sln = ObsługaArduinoPrzyPalmie.sln
 	EndProjectSection
 EndProject
 Global
