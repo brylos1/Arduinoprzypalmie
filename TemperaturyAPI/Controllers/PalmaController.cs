@@ -32,10 +32,7 @@ namespace TemperaturyAPI.Controllers
         {
             
             IQueryable Temperatury = _Db.temperaturies.Where(t => t.DataPomiaru >= startdate && t.DataPomiaru <= enddate);
-            if(Temperatury is null)
-            {
-                return NotFound();
-            }
+
             return Ok(Temperatury);
         }
         // /api/Palma/grzanie
@@ -52,10 +49,7 @@ namespace TemperaturyAPI.Controllers
         public ActionResult<IQueryable<DaneZPalmyModel>> GetGrzanieBetween(DateTime startdate, DateTime enddate)
         {
             IQueryable Temperatury = _Db.temperaturies.Where(t => t.DataPomiaru >= startdate && t.DataPomiaru <= enddate && t.CzyGrzanieZalaczone == true);
-            if (Temperatury is null)
-            {
-                return NotFound();
-            }
+
             return Ok(Temperatury);
         }
         // /api/Palma/bezgrzania
@@ -73,10 +67,7 @@ namespace TemperaturyAPI.Controllers
         {
 
             IQueryable Temperatury = _Db.temperaturies.Where(t => t.DataPomiaru >= startdate && t.DataPomiaru <= enddate && t.CzyGrzanieZalaczone == false);
-            if (Temperatury is null)
-            {
-                return NotFound();
-            }
+
             return Ok(Temperatury);
         }
         // /api/Palma/srednia
@@ -93,6 +84,22 @@ namespace TemperaturyAPI.Controllers
         public ActionResult<IQueryable<SrednieTemperaturyModel>> GetSredniaBetween(DateTime startdate, DateTime enddate)
         {
             IQueryable Temperatury = _Db.srednieTemperatury.FromSqlRaw("SELECT * FROM temperatury.srednieTemperatury").Where(st=>st.DataPomiaru>=DateOnly.FromDateTime(startdate)&&st.DataPomiaru<=DateOnly.FromDateTime(enddate)).AsQueryable();
+            return Ok(Temperatury);
+        }
+        // /api/Palma/MinMax
+        [HttpGet]
+        [Route("minmax")]
+        public ActionResult<IQueryable<MinMaxModel>> GetMinMaxAll()
+        {
+            IQueryable Temperatury = _Db.minMax.FromSqlRaw("SELECT * FROM temperatury.MinMax").AsQueryable();
+            return Ok(Temperatury);
+        }
+        // /api/Palma/srednia/between?enddate={Data końca przedziału w formacie yyyy-mm-dd}&startdate={Data początku przedziału w formacie yyyy-mm-dd}
+        [HttpGet]
+        [Route("minmax/between")]
+        public ActionResult<IQueryable<MinMaxModel>> GetMinMaxBetween(DateTime startdate, DateTime enddate)
+        {
+            IQueryable Temperatury = _Db.minMax.FromSqlRaw("SELECT * FROM temperatury.MinMax").Where(st => st.DataPomiaru >= DateOnly.FromDateTime(startdate) && st.DataPomiaru <= DateOnly.FromDateTime(enddate)).AsQueryable();
             return Ok(Temperatury);
         }
         // /api/Palma/ostatni

@@ -11,6 +11,7 @@ namespace TemperaturyAPI.Database
         }
         public DbSet<DaneZPalmyModel> temperaturies { get; set; }
         public DbSet<SrednieTemperaturyModel> srednieTemperatury { get; set; }
+        public DbSet<MinMaxModel> minMax { get; set; }
     }
 }
 
