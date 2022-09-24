@@ -11,11 +11,13 @@
     <None Remove="Models\" />
     <None Remove="Pomelo.EntityFrameworkCore.MySql" />
     <None Remove="Database\" />
+    <None Remove="Models\DTO\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
     <Folder Include="Database\" />
+    <Folder Include="Models\DTO\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />

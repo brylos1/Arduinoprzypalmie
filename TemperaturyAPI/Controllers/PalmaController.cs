@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TemperaturyAPI.Database;
 using TemperaturyAPI.Models;
+using TemperaturyAPI.Models.DTO;
 
 namespace TemperaturyAPI.Controllers
 {
@@ -105,10 +106,15 @@ namespace TemperaturyAPI.Controllers
         // /api/Palma/ostatni
         [HttpGet]
         [Route("ostatni")]
-        public ActionResult<DaneZPalmyModel> GetOstatni()
+        public ActionResult<OstatnieTemperaturyDTO> GetOstatni()
         {
             DaneZPalmyModel? Temperatury = _Db.temperaturies.OrderByDescending(t => t.DataPomiaru).FirstOrDefault();
-            return Ok(Temperatury);
+            OstatnieTemperaturyDTO ostania = new OstatnieTemperaturyDTO()
+            {
+                TemperaturaGleby = Temperatury.TemperaturaGleby,
+                TemperaturaPowietrza = Temperatury.TemperaturaPowietrza
+            };
+            return Ok(ostania);
         }
 
     }
