@@ -1,16 +1,27 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container-fluid">
+    <div class="row">
+      <aktualneTemperaturyVue/>
+      <WybierzDane/>
+    </div>
+    
+  </div>
+  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import aktualneTemperaturyVue from './components/aktualneTemperatury.vue';
+import WybierzDaneVue from './components/WybierzDane.vue';
+import WybierzDane from './components/WybierzDane.vue';
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    aktualneTemperaturyVue,
+    WybierzDaneVue,
+    WybierzDane
+}
 }
 </script>
 
@@ -21,6 +32,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  overflow-wrap: break-word;
 }
 </style>
