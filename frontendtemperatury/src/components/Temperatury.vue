@@ -25,7 +25,7 @@
     </tr>
   </thead>
   <tr v-for="record in dane" :key="record.id">
-    <th scope="row">{{record.dataPomiaru}}</th>
+    <th scope="row">{{getSformatowanaData(record.dataPomiaru)}}</th>
     <td>{{record.temperaturaPowietrza}}&deg;C</td>
     <td>{{record.temperaturaGleby}}&deg;C</td>
     <td>{{record.czyGrzanieZalaczone?"Tak":"Nie"}}</td>
@@ -37,6 +37,7 @@
     </div>
 </template>
 <script>
+    import moment from 'moment'
     import axios from 'axios'
 export default{
     data(){
@@ -56,6 +57,10 @@ export default{
     }).catch(e => {
      this.error=true;
     })
+    },
+    getSformatowanaData(dataDoSformatowania){
+      return moment(dataDoSformatowania).format("DD-MM-YYYY HH:mm:ss")
+
     }
   },
   mounted() {
