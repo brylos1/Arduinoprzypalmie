@@ -28,16 +28,20 @@
       
     </div >
        <Temperatury v-if='checkradio=="temp"'/>
+       <SrednieTemperatury v-if='checkradio=="avg"' />
+       <MinmaxTemperatury v-if='checkradio=="minmax"' />
 </template>
 <script>
 import Temperatury from './Temperatury.vue';
+import SrednieTemperatury from './srednieTemperatury.vue';
+import MinmaxTemperatury from './minmaxTemperatury.vue';
     export default {
     data() {
         return {
             checkradio: "none"
         };
     },
-    components: { Temperatury }
+    components: { Temperatury, SrednieTemperatury, MinmaxTemperatury }
 }
 </script>
 <style>
