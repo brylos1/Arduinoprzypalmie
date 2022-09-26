@@ -118,7 +118,7 @@ export default{
     })
     },
     getTeperaturyBetween(){
-      axios.get("http://palma.bieda.it/api/Palma/minmax/between?startdate="+moment(this.od).format("YYYY-MM-DDTHH:mm:ss")+"&enddate="+moment(this.dodate).format("YYYY-MM-DDTHH:mm:ss")).then(response=>{
+      axios.get("https://palma.bieda.it/api/Palma/minmax/between?startdate="+moment(this.od).format("YYYY-MM-DDTHH:mm:ss")+"&enddate="+moment(this.dodate).format("YYYY-MM-DDTHH:mm:ss")).then(response=>{
      this.dane=response.data;
      this.getMaxPage();
      this.getpagelist();
@@ -132,10 +132,10 @@ export default{
     getPage(numerstrony){
       var startsplit = (numerstrony-1)*100;
       var stopsplit=startsplit+100
-      console.log(this.dane)
       this.page=this.dane.slice(startsplit,stopsplit);
     },
     getMaxPage(){
+        this.pagenow=1
       this.pageall=Math.ceil(this.dane.length/100)
     },
     getpagelist(){
