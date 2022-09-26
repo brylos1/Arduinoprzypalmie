@@ -27,7 +27,7 @@
         </div>
       
     </div >
-       <Temperatury v-if='true'/>
+       <Temperatury v-if='checkradio=="temp"'/>
 </template>
 <script>
 import Temperatury from './Temperatury.vue';
