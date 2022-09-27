@@ -114,7 +114,7 @@ export default{
             axios.get("https://palma.bieda.it/api/Palma/all").then(response => {
                 this.dane = response.data;
                 this.getMaxPage();
-                this.getpagelist();
+                 this.getpagelist();
                 this.getPage(this.pagenow);
                 this.all = true;
             }).catch(e => {
@@ -141,8 +141,7 @@ export default{
             var stopsplit = startsplit + 100;
             this.page = this.dane.slice(startsplit, stopsplit);
         },
-        async getMaxPage() {
-            await this.convertTochart();
+        getMaxPage() {
             this.pagenow = 1;
             this.pageall = Math.ceil(this.dane.length / 100);
             
@@ -204,7 +203,13 @@ export default{
             if (newvalue && !this.all) {
                 this.getTeperatury();
             }
+        },
+        czyWykres(newvalue,oldvalue){
+          if(newvalue){
+            this.convertTochart();
+          }
         }
+
     },
     components: { Wykres }
 }

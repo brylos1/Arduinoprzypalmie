@@ -138,7 +138,7 @@ export default{
       this.page=this.dane.slice(startsplit,stopsplit);
     },
     async getMaxPage(){
-    await this.convertTochart();
+
        this.pagenow=1
       this.pageall=Math.ceil(this.dane.length/100)
     },
@@ -180,7 +180,7 @@ export default{
             label: 'Średnia Temperatura Powietrza',
             data: temperaturaPowietrza2,
             borderColor: '#00CCFF',
-            backgroundColor:'#00CCFF'
+            backgroundColor:'#00CCFF',
           },
           {
             label: 'Średnia Temperatura Gleby',
@@ -199,10 +199,16 @@ export default{
       if(newvalue&&!this.all){
         this.getTeperatury()
       }
-    }
+      
+    },
+    czyWykres(newvalue,oldvalue){
+          if(newvalue){
+            this.convertTochart();
+          }
   },
   components:{
     Wykres
+  }
   }
 }
    

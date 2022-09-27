@@ -143,7 +143,6 @@ export default{
       this.page=this.dane.slice(startsplit,stopsplit);
     },
     async getMaxPage(){
-    await this.convertTochart();
        this.pagenow=1
       this.pageall=Math.ceil(this.dane.length/100)
     },
@@ -220,7 +219,12 @@ export default{
       if(newvalue&&!this.all){
         this.getTeperatury()
       }
-    }
+    },
+    czyWykres(newvalue,oldvalue){
+          if(newvalue){
+            this.convertTochart();
+          }
+  },
   },
   components:{
     Wykres

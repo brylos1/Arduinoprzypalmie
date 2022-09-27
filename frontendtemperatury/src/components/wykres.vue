@@ -99,8 +99,6 @@ Chart.register(
             y: {  
         ticks: {
           color: "white",
-          stepSize: 1,
-
         },
         grid:{
             color:'white'
@@ -112,9 +110,6 @@ Chart.register(
           },
         ticks: {
           color: "white",
-          stepSize: 1,
-          
-
         }
       },
         }
