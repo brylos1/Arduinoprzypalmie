@@ -81,11 +81,16 @@
 </nav>
 
         </div>
+        <div v-if="czyWykres && readychart">
+          <Wykres :labelsprops="labels" :datasetsprops="datasets"/>
+        </div>
     </div>
 </template>
 <script>
     import moment from 'moment'
     import axios from 'axios'
+    import Wykres from './wykres.vue';
+import { max } from 'lodash';
 export default{
     data(){
         return{
@@ -100,7 +105,10 @@ export default{
             czycalyokres:true,
             od: new Date(),
             dodate: new Date(),
-            all:null
+            all:null,
+            labels:[],
+            datasets:[],
+            readychart:false
         }
         
     },
@@ -134,8 +142,9 @@ export default{
       var stopsplit=startsplit+100
       this.page=this.dane.slice(startsplit,stopsplit);
     },
-    getMaxPage(){
-        this.pagenow=1
+    async getMaxPage(){
+    await this.convertTochart();
+       this.pagenow=1
       this.pageall=Math.ceil(this.dane.length/100)
     },
     getpagelist(){
@@ -160,7 +169,48 @@ export default{
       this.getpagelist();
       }
      
-    }
+    },
+    async convertTochart(){
+          var mintemperaturaPowietrza2=[];
+          var maxtemperaturaPowietrza2=[];
+          var mintemperaturaGleby2=[];
+          var maxtemperaturaGleby2=[];
+          var labels2=[];
+          this.dane.forEach(function(d){
+            mintemperaturaPowietrza2.push(d.minimalnaTemperaturaPowietrza);
+            maxtemperaturaPowietrza2.push(d.maksymalnaTemperaturaPowietrza)
+            mintemperaturaGleby2.push(d.minimalnaTemperaturaGleby);
+            maxtemperaturaGleby2.push(d.maksymalnaTemperaturaGleby);
+            labels2.push(d.dataPomiaru);
+          })
+          this.labels=labels2
+          this.datasets=[
+            {
+            label: 'Minimalna Temperatura Powietrza',
+            data: mintemperaturaPowietrza2,
+            borderColor: '#4DDBFF',
+            backgroundColor:'#4DDBFF'
+          },
+          {
+            label: 'Maksymalna Temperatura Powietrza',
+            data: maxtemperaturaPowietrza2,
+            borderColor: '#266E80',
+            backgroundColor:'#266E80'
+          },
+          {
+            label: 'Minimalna Temperatura Gleby',
+            data: mintemperaturaGleby2,
+            borderColor: '#DFA264',
+            backgroundColor:'#DFA264'
+          },
+          {
+            label: 'Maksymalna Temperatura Gleby',
+            data: maxtemperaturaGleby2,
+            borderColor: '#A65F19',
+            backgroundColor:'#A65F19'
+          }]
+          this.readychart=true
+        },
   },
   mounted() {
     this.getTeperatury()
@@ -171,6 +221,9 @@ export default{
         this.getTeperatury()
       }
     }
+  },
+  components:{
+    Wykres
   }
 }
    

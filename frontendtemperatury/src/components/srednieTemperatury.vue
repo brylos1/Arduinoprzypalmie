@@ -77,11 +77,15 @@
 </nav>
 
         </div>
+        <div v-if="czyWykres && readychart">
+          <Wykres :labelsprops="labels" :datasetsprops="datasets"/>
+        </div>
     </div>
 </template>
 <script>
     import moment from 'moment'
     import axios from 'axios'
+    import Wykres from './wykres.vue';
 export default{
     data(){
         return{
@@ -96,7 +100,10 @@ export default{
             czycalyokres:true,
             od: new Date(),
             dodate: new Date(),
-            all:null
+            all:null,
+            labels:[],
+            datasets:[],
+            readychart:false
         }
         
     },
@@ -130,7 +137,8 @@ export default{
       var stopsplit=startsplit+100
       this.page=this.dane.slice(startsplit,stopsplit);
     },
-    getMaxPage(){
+    async getMaxPage(){
+    await this.convertTochart();
        this.pagenow=1
       this.pageall=Math.ceil(this.dane.length/100)
     },
@@ -156,8 +164,33 @@ export default{
       this.getpagelist();
       }
      
-    }
-  },
+    },
+  async convertTochart(){
+          var temperaturaPowietrza2=[];
+          var temperaturaGleby2=[];
+          var labels2=[];
+          this.dane.forEach(function(d){
+            temperaturaPowietrza2.push(d.sredniaPowietrza);
+            temperaturaGleby2.push(d.sredniaGleby);
+            labels2.push(d.dataPomiaru);
+          })
+          this.labels=labels2
+          this.datasets=[
+            {
+            label: 'Średnia Temperatura Powietrza',
+            data: temperaturaPowietrza2,
+            borderColor: '#00CCFF',
+            backgroundColor:'#00CCFF'
+          },
+          {
+            label: 'Średnia Temperatura Gleby',
+            data: temperaturaGleby2,
+            borderColor: '#DA7C20',
+            backgroundColor:'#DA7C20'
+          }]
+          this.readychart=true
+        },
+    },
   mounted() {
     this.getTeperatury()
   },
@@ -167,6 +200,9 @@ export default{
         this.getTeperatury()
       }
     }
+  },
+  components:{
+    Wykres
   }
 }
    

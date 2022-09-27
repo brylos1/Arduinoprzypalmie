@@ -20,10 +20,7 @@
   <input class="form-check-input" type="radio" name="grupaWykres" id="minmax" value="minmax" v-model="checkradio">
   <label class="form-check-label" for="minmax">Minimalna i Maksymalna temperatura</label>
 </div>
-<div class="form-check form-check-inline text-algin-left col-md-auto">
-  <input class="form-check-input" type="radio" name="grupaWykres" id="Grzanie" value="Grzanie" v-model="checkradio">
-  <label class="form-check-label" for="Grzanie">Grzanie</label>
-</div>
+
         </div>
       
     </div >
@@ -38,7 +35,7 @@ import MinmaxTemperatury from './minmaxTemperatury.vue';
     export default {
     data() {
         return {
-            checkradio: "temp"
+            checkradio: "none"
         };
     },
     components: { Temperatury, SrednieTemperatury, MinmaxTemperatury }

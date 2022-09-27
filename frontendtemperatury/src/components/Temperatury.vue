@@ -92,7 +92,7 @@ export default{
     data() {
         return {
             czyTabela: false,
-            czyWykres: true,
+            czyWykres: false,
             dane: [],
             error: false,
             pagenow: 1,

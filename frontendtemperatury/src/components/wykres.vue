@@ -1,5 +1,5 @@
 <template>
-    <canvas id="myChart" width="400" height="200"></canvas>
+    <canvas id="myChart"></canvas>
 </template>
 <script>
     import {
@@ -29,7 +29,7 @@
   Tooltip,
   SubTitle
 } from 'chart.js';
-
+import zoomPlugin from 'chartjs-plugin-zoom'
 Chart.register(
   ArcElement,
   LineElement,
@@ -54,7 +54,8 @@ Chart.register(
   Legend,
   Title,
   Tooltip,
-  SubTitle
+  SubTitle,
+  zoomPlugin
 );
 
     export default{
@@ -69,13 +70,30 @@ Chart.register(
     },
     options: {
         responsive:true,
+        maintainAspectRatio: false,
         plugins: {
       legend: {
         labels: {
           color: "white",
           
         }
-      }
+      },
+      zoom:{
+        pan: {
+          enabled:true,
+          mode:'x'
+        },
+        zoom: {
+            wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true
+          },
+          mode: 'x',
+        }
+        }
+      
     },
         scales: {
             y: {  
@@ -106,3 +124,13 @@ myChart;
         }
     }
 </script>
+<style scoped>
+    canvas{
+        height: 800px;
+    }
+    @media only screen and (max-width: 600px){
+        canvas{
+            height: 400px;
+        }
+    }
+</style>
