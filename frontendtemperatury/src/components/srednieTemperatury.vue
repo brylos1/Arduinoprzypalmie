@@ -205,11 +205,13 @@ export default{
           if(newvalue){
             this.convertTochart();
           }
-  },
+        }
+      },
+
   components:{
     Wykres
   }
-  }
+  
 }
    
 </script>
