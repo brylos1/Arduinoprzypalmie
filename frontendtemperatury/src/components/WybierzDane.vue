@@ -10,7 +10,7 @@
 </div>
 <div class="form-check form-check-inline text-algin-left col-md-auto">
   <input class="form-check-input" type="radio" name="grupaWykres" id="temperaturyy" value="temp" v-model="checkradio">
-  <label class="form-check-label" for="temperaturyy">Temperatury</label>
+  <label class="form-check-label" for="temperaturyy">Wszystkie zanotowane temperatury</label>
 </div>
 <div class="form-check form-check-inline text-algin-left col-md-auto">
   <input class="form-check-input" type="radio" name="grupaWykres" id="avg" value="avg" v-model="checkradio">
