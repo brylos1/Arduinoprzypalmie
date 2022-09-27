@@ -79,101 +79,134 @@
 </nav>
 
         </div>
+        <div v-if="czyWykres && readychart">
+          <Wykres :labelsprops="labels" :datasetsprops="datasets"/>
+        </div>
     </div>
 </template>
 <script>
     import moment from 'moment'
     import axios from 'axios'
+import Wykres from './wykres.vue';
 export default{
-    data(){
-        return{
-            czyTabela:false,
-            czyWykres:false,
-            dane:[],
-            error:false,
-            pagenow:1,
-            pageshowlist:null,
-            pageall:null,
-            page:null,
-            czycalyokres:true,
+    data() {
+        return {
+            czyTabela: false,
+            czyWykres: true,
+            dane: [],
+            error: false,
+            pagenow: 1,
+            pageshowlist: null,
+            pageall: null,
+            page: null,
+            czycalyokres: true,
             od: new Date(),
             dodate: new Date(),
-            all:null
-        }
-        
+            all: null,
+            labels:[],
+            datasets:[],
+            readychart:false
+        };
     },
     methods: {
-    getTeperatury() {
-        axios.get("https://palma.bieda.it/api/Palma/all").then(response=>{
-     this.dane=response.data;
-     this.getMaxPage();
-     this.getpagelist();
-     this.getPage(this.pagenow);
-     this.all=true     
-
-    }).catch(e => {
-     this.error=true;
-    })
+        getTeperatury() {
+          this.readychart=false;
+            axios.get("https://palma.bieda.it/api/Palma/all").then(response => {
+                this.dane = response.data;
+                this.getMaxPage();
+                this.getpagelist();
+                this.getPage(this.pagenow);
+                this.all = true;
+            }).catch(e => {
+                this.error = true;
+            });
+        },
+        getTeperaturyBetween() {
+          this.readychart=false;
+            axios.get("https://palma.bieda.it/api/palma/between?startdate=" + moment(this.od).format("YYYY-MM-DDTHH:mm:ss") + "&enddate=" + moment(this.dodate).format("YYYY-MM-DDTHH:mm:ss")).then(response => {
+                this.dane = response.data;
+                this.getMaxPage();
+                this.getpagelist();
+                this.getPage(this.pagenow);
+                this.all = false;
+            }).catch(e => {
+                this.error = true;
+            });
+        },
+        getSformatowanaData(dataDoSformatowania) {
+            return moment(dataDoSformatowania).format("DD-MM-YYYY HH:mm:ss");
+        },
+        getPage(numerstrony) {
+            var startsplit = (numerstrony - 1) * 100;
+            var stopsplit = startsplit + 100;
+            this.page = this.dane.slice(startsplit, stopsplit);
+        },
+        async getMaxPage() {
+            await this.convertTochart();
+            this.pagenow = 1;
+            this.pageall = Math.ceil(this.dane.length / 100);
+            
+        },
+        getpagelist() {
+            if (this.pageall <= 5) {
+                this.pageshowlist = this.pageall;
+            }
+            else {
+                if (this.pagenow == 1 || this.pagenow == 2) {
+                    this.pageshowlist = 5;
+                }
+                else if (this.pagenow >= this.pageall - 3) {
+                    this.pageshowlist = [this.pageall - 4, this.pageall - 3, this.pageall - 2, this.pageall - 1, this.pageall];
+                }
+                else {
+                    this.pageshowlist = [this.pagenow - 2, this.pagenow - 1, this.pagenow, this.pagenow + 1, this.pagenow + 2];
+                }
+            }
+        },
+        setpage(page) {
+            if (page > 0 && page <= this.pageall) {
+                this.pagenow = page;
+                this.getPage(page);
+                this.getpagelist();
+            }
+        },
+        async convertTochart(){
+          var temperaturaPowietrza2=[];
+          var temperaturaGleby2=[];
+          var labels2=[];
+          this.dane.forEach(function(d){
+            temperaturaPowietrza2.push(d.temperaturaPowietrza);
+            temperaturaGleby2.push(d.temperaturaGleby);
+            labels2.push(moment(d.dataPomiaru).format("DD-MM-YYYY HH:mm:ss"));
+          })
+          this.labels=labels2
+          this.datasets=[
+            {
+            label: 'Temperatura Powietrza',
+            data: temperaturaPowietrza2,
+            borderColor: '#00CCFF',
+            backgroundColor:'#00CCFF'
+          },
+          {
+            label: 'Temperatura Gleby',
+            data: temperaturaGleby2,
+            borderColor: '#DA7C20',
+            backgroundColor:'#DA7C20'
+          }]
+          this.readychart=true
+        }
     },
-    getTeperaturyBetween(){
-      axios.get("https://palma.bieda.it/api/palma/between?startdate="+moment(this.od).format("YYYY-MM-DDTHH:mm:ss")+"&enddate="+moment(this.dodate).format("YYYY-MM-DDTHH:mm:ss")).then(response=>{
-     this.dane=response.data;
-     this.getMaxPage();
-     this.getpagelist();
-     this.getPage(this.pagenow);
-     this.all=false   
-
-    }).catch(e => {
-     this.error=true;
-    })
+    mounted() {
+        this.getTeperatury();
     },
-    getSformatowanaData(dataDoSformatowania){
-      return moment(dataDoSformatowania).format("DD-MM-YYYY HH:mm:ss")
-
+    watch: {
+        czycalyokres(newvalue, oldvalue) {
+            if (newvalue && !this.all) {
+                this.getTeperatury();
+            }
+        }
     },
-    getPage(numerstrony){
-      var startsplit = (numerstrony-1)*100;
-      var stopsplit=startsplit+100
-      this.page=this.dane.slice(startsplit,stopsplit);
-    },
-    getMaxPage(){
-      this.pagenow=1
-      this.pageall=Math.ceil(this.dane.length/100)
-    },
-    getpagelist(){
-      if(this.pageall<=5){
-        this.pageshowlist=this.pageall
-      }else{
-        if(this.pagenow==1||this.pagenow==2){
-        this.pageshowlist=5
-      }else if(this.pagenow>=this.pageall-3){
-        this.pageshowlist=[this.pageall-4,this.pageall-3,this.pageall-2,this.pageall-1,this.pageall]
-      }
-      else{
-        this.pageshowlist=[this.pagenow-2,this.pagenow-1,this.pagenow,this.pagenow+1,this.pagenow+2]
-      }
-      }
-      
-    },
-    setpage(page){
-      if(page>0&&page<=this.pageall){
-         this.pagenow=page;
-      this.getPage(page);
-      this.getpagelist();
-      }
-     
-    }
-  },
-  mounted() {
-    this.getTeperatury()
-  },
-  watch:{
-    czycalyokres(newvalue,oldvalue){
-      if(newvalue&&!this.all){
-        this.getTeperatury()
-      }
-    }
-  }
+    components: { Wykres }
 }
    
 </script>

@@ -38,7 +38,7 @@ import MinmaxTemperatury from './minmaxTemperatury.vue';
     export default {
     data() {
         return {
-            checkradio: "none"
+            checkradio: "temp"
         };
     },
     components: { Temperatury, SrednieTemperatury, MinmaxTemperatury }

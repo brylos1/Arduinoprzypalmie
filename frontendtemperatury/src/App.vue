@@ -4,23 +4,20 @@
       <aktualneTemperaturyVue/>
       <WybierzDane/>
     </div>
-    
   </div>
-  
 </template>
 
 <script>
 import aktualneTemperaturyVue from './components/aktualneTemperatury.vue';
-import WybierzDaneVue from './components/WybierzDane.vue';
 import WybierzDane from './components/WybierzDane.vue';
+import Wykres from './components/wykres.vue';
 
 
 export default {
   name: 'App',
   components: {
     aktualneTemperaturyVue,
-    WybierzDaneVue,
-    WybierzDane
+    WybierzDane,
 }
 }
 </script>
