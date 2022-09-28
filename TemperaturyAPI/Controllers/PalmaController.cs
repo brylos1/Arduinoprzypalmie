@@ -24,7 +24,7 @@ namespace TemperaturyAPI.Controllers
         [Route("all")]
         public ActionResult< IQueryable<DaneZPalmyModel>> GetAll()
         {
-            var Temperatury = _Db.temperaturies.ToList();
+            var Temperatury = _Db.temperaturies.AsQueryable();
             return Ok(Temperatury);
         }
         // /api/Palma/between?enddate={Data końca przedziału w formacie yyyy-mm-ddThh:mm:ss}&startdate={Data początku przedziału w formacie yyyy-mm-ddThh:mm:ss}
@@ -95,7 +95,7 @@ namespace TemperaturyAPI.Controllers
             IQueryable Temperatury = _Db.minMax.FromSqlRaw("SELECT * FROM temperatury.MinMax").AsQueryable();
             return Ok(Temperatury);
         }
-        // /api/Palma/srednia/between?enddate={Data końca przedziału w formacie yyyy-mm-dd}&startdate={Data początku przedziału w formacie yyyy-mm-dd}
+        // /api/Palma/minmax/between?enddate={Data końca przedziału w formacie yyyy-mm-dd}&startdate={Data początku przedziału w formacie yyyy-mm-dd}
         [HttpGet]
         [Route("minmax/between")]
         public ActionResult<IQueryable<MinMaxModel>> GetMinMaxBetween(DateTime startdate, DateTime enddate)

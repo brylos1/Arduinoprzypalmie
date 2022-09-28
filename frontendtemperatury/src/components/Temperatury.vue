@@ -86,7 +86,6 @@
 </template>
 <script>
     import moment from 'moment'
-    import axios from 'axios'
 import Wykres from './wykres.vue';
 export default{
     data() {
@@ -111,7 +110,7 @@ export default{
     methods: {
         getTeperatury() {
           this.readychart=false;
-            axios.get("https://palma.bieda.it/api/Palma/all").then(response => {
+            this.$axios.get("https://palma.bieda.it/api/Palma/all").then(response => {
                 this.dane = response.data;
                 this.getMaxPage();
                  this.getpagelist();
@@ -123,11 +122,12 @@ export default{
         },
         getTeperaturyBetween() {
           this.readychart=false;
-            axios.get("https://palma.bieda.it/api/palma/between?startdate=" + moment(this.od).format("YYYY-MM-DDTHH:mm:ss") + "&enddate=" + moment(this.dodate).format("YYYY-MM-DDTHH:mm:ss")).then(response => {
+          this.$axios.get("https://palma.bieda.it/api/palma/between?startdate=" + moment(this.od).format("YYYY-MM-DDTHH:mm:ss") + "&enddate=" + moment(this.dodate).format("YYYY-MM-DDTHH:mm:ss")).then(response => {
                 this.dane = response.data;
                 this.getMaxPage();
                 this.getpagelist();
                 this.getPage(this.pagenow);
+                this.convertTochart()
                 this.all = false;
             }).catch(e => {
                 this.error = true;
@@ -202,6 +202,9 @@ export default{
         czycalyokres(newvalue, oldvalue) {
             if (newvalue && !this.all) {
                 this.getTeperatury();
+                if(this.czyWykres){
+          this.convertTochart()
+        }
             }
         },
         czyWykres(newvalue,oldvalue){

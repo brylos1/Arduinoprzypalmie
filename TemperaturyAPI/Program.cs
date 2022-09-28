@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using TemperaturyAPI.Database;
+using TemperaturyAPI.middleware;
 using TemperaturyAPI.Models;
 
 namespace TemperaturyAPI;
@@ -29,6 +30,7 @@ public class Program
         // Configure the HTTP request pipeline.
 
         app.UseHttpsRedirection();
+        app.UseMiddleware<apikeymiddleware>();
 
         app.UseAuthorization();
 

@@ -1,5 +1,8 @@
 <template>
-    <canvas id="myChart"></canvas>
+  <div id="chartwrap">
+     <canvas id="myChart"></canvas>
+  </div>
+   
 </template>
 <script>
     import {
@@ -60,9 +63,16 @@ Chart.register(
 
     export default{
         props:["labelsprops","datasetsprops"],
-        mounted(){
+        data(){
+          return{
+            myChart:null,
+            mounted:false,
+          }
+        },
+        methods:{
+          drawchart(){
             const ctx = document.getElementById('myChart');
-            const myChart = new Chart(ctx, {
+            this.myChart = new Chart(ctx, {
     type: 'line',
     data: {
         labels: this.labelsprops,
@@ -115,17 +125,38 @@ Chart.register(
         }
     }
 });
-myChart;
+this.myChart;
+          }
+        },
+        mounted(){
+          this.drawchart()
+          this.mounted=true
+        },
+        watch:{
+          datasetsprops(newdatasets,olddatasets){
+            if(this.mounted){
+              const chart = document.getElementById('myChart');
+              chart.remove();
+              this.myChart.destroy();
+              const wrap = document.getElementById('chartwrap');
+              const newcanvas=document.createElement("canvas");
+              newcanvas.setAttribute("id","myChart");
+              newcanvas.style.cssText += "height: 650px;"
+              wrap.appendChild(newcanvas);
+            }
+
+            this.drawchart();
+          }
         }
     }
 </script>
 <style scoped>
     canvas{
-        height: 800px;
+        height: 650px;
     }
     @media only screen and (max-width: 600px){
         canvas{
-            height: 400px;
+            height: 650px;
         }
     }
 </style>

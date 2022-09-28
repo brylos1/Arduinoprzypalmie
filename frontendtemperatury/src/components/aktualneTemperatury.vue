@@ -4,7 +4,6 @@
     </div>
 </template>
 <script>
-    import axios from 'axios'
 export default {
   data() {
     return { TeperaturaPowietrza: null,
@@ -13,7 +12,7 @@ export default {
   },
   methods: {
     reNew() {
-        axios.get("https://palma.bieda.it/api/Palma/ostatni").then(response=>{
+      this.$axios.get("https://palma.bieda.it/api/Palma/ostatni").then(response=>{
         this.TemperaturaGleby=response.data.temperaturaGleby;
       this.TeperaturaPowietrza=response.data.temperaturaPowietrza;
 
