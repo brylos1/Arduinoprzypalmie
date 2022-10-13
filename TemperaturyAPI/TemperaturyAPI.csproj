@@ -13,6 +13,7 @@
     <None Remove="Database\" />
     <None Remove="Models\DTO\" />
     <None Remove="middleware\" />
+    <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -23,5 +24,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.7" />
   </ItemGroup>
 </Project>

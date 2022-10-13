@@ -5,8 +5,8 @@ namespace OdczytDanych
 {
     public class MyDatabaseOperation
     {
-        private MyDbContext _dbcontext;
-        public MyDatabaseOperation(MyDbContext myDb)
+        private PgsqlDbContext _dbcontext;
+        public MyDatabaseOperation(PgsqlDbContext myDb)
         {
             _dbcontext = myDb;
         }

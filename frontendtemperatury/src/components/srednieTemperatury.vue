@@ -170,9 +170,9 @@ export default{
           var temperaturaGleby2=[];
           var labels2=[];
           this.dane.forEach(function(d){
-            temperaturaPowietrza2.push(d.sredniaPowietrza);
-            temperaturaGleby2.push(d.sredniaGleby);
-            labels2.push(d.dataPomiaru);
+            temperaturaPowietrza2.unshift(d.sredniaPowietrza);
+            temperaturaGleby2.unshift(d.sredniaGleby);
+            labels2.unshift(d.dataPomiaru);
           })
           this.labels=labels2
           this.datasets=[

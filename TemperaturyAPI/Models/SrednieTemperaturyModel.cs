@@ -10,8 +10,8 @@ namespace TemperaturyAPI.Models
     public class SrednieTemperaturyModel
     {
         public DateOnly DataPomiaru { get; set; }
-        public float SredniaGleby { get; set; }
-        public float SredniaPowietrza { get; set; }
+        public double SredniaGleby { get; set; }
+        public double SredniaPowietrza { get; set; }
     }
     
 }

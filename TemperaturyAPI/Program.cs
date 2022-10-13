@@ -20,9 +20,9 @@ public class Program
         {
             options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
         });
-        builder.Services.AddDbContext<MysqlDbContext>(options =>
+        builder.Services.AddDbContext<PgsqlDbContext>(options =>
         {
-            options.UseMySql(builder.Configuration.GetConnectionString("Default"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("Default")));
+            options.UseNpgsql(builder.Configuration.GetConnectionString("Pgsql"));
         });
 
         var app = builder.Build();

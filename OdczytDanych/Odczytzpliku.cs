@@ -7,7 +7,7 @@ namespace OdczytDanych
     {
         public static void odczytajZPliku(string path)
         {
-           using(var db = new MyDbContext())
+           using(var db = new PgsqlDbContext())
             {
                 string[] fileLines = File.ReadAllLines(path);
                 MyDatabaseOperation databaseOperation = new MyDatabaseOperation(db);

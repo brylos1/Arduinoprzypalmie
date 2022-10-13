@@ -4,22 +4,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OdczytDanych.entities;
 
 #nullable disable
 
 namespace OdczytDanych.Migrations
 {
-    [DbContext(typeof(MyDbContext))]
-    [Migration("20220914121726_create")]
-    partial class create
+    [DbContext(typeof(PgsqlDbContext))]
+    [Migration("20221011102827_new")]
+    partial class @new
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.9")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("OdczytDanych.entities.Temperatury", b =>
                 {
@@ -27,17 +30,19 @@ namespace OdczytDanych.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("ID"));
+
                     b.Property<bool>("CzyGrzanieZalaczone")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("DataPomiaru")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<float>("TemperaturaGleby")
-                        .HasColumnType("float");
+                        .HasColumnType("real");
 
                     b.Property<float>("TemperaturaPowietrza")
-                        .HasColumnType("float");
+                        .HasColumnType("real");
 
                     b.HasKey("ID");
 

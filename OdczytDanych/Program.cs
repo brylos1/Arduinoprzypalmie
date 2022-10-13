@@ -10,6 +10,7 @@ namespace MyApp
         
         static void Main(string[] args)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             Console.WriteLine("Wybierz tryb pracy: 1-plik 2-serial port");
             byte tryb = Byte.Parse( Console.ReadLine());
             switch (tryb)
@@ -26,7 +27,7 @@ namespace MyApp
                     Console.WriteLine("Podaj numer baund");
                     int baund = int.Parse(Console.ReadLine());
                     SerialPortConnector serialPortConnector = new SerialPortConnector(port, baund);
-                    MyDbContext context = new MyDbContext();
+                    PgsqlDbContext context = new PgsqlDbContext();
                     if (context.Database.CanConnect())
                     {
                         Console.WriteLine("połączono z bazą danych");

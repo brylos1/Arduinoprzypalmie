@@ -174,9 +174,9 @@ export default{
           var temperaturaGleby2=[];
           var labels2=[];
           this.dane.forEach(function(d){
-            temperaturaPowietrza2.push(d.temperaturaPowietrza);
-            temperaturaGleby2.push(d.temperaturaGleby);
-            labels2.push(moment(d.dataPomiaru).format("DD-MM-YYYY HH:mm:ss"));
+            temperaturaPowietrza2.unshift(d.temperaturaPowietrza);
+            temperaturaGleby2.unshift(d.temperaturaGleby);
+            labels2.unshift(moment(d.dataPomiaru).format("DD-MM-YYYY HH:mm:ss"));
           })
           this.labels=labels2
           this.datasets=[

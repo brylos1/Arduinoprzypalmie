@@ -175,11 +175,11 @@ export default{
           var maxtemperaturaGleby2=[];
           var labels2=[];
           this.dane.forEach(function(d){
-            mintemperaturaPowietrza2.push(d.minimalnaTemperaturaPowietrza);
-            maxtemperaturaPowietrza2.push(d.maksymalnaTemperaturaPowietrza)
-            mintemperaturaGleby2.push(d.minimalnaTemperaturaGleby);
-            maxtemperaturaGleby2.push(d.maksymalnaTemperaturaGleby);
-            labels2.push(d.dataPomiaru);
+            mintemperaturaPowietrza2.unshift(d.minimalnaTemperaturaPowietrza);
+            maxtemperaturaPowietrza2.unshift(d.maksymalnaTemperaturaPowietrza)
+            mintemperaturaGleby2.unshift(d.minimalnaTemperaturaGleby);
+            maxtemperaturaGleby2.unshift(d.maksymalnaTemperaturaGleby);
+            labels2.unshift(d.dataPomiaru);
           })
           this.labels=labels2
           this.datasets=[

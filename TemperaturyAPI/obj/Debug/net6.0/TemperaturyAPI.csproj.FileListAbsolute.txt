@@ -26,3 +26,5 @@
 /Users/mateusz/Projects/OdczytDanych/TemperaturyAPI/bin/Debug/net6.0/MySqlConnector.dll
 /Users/mateusz/Projects/OdczytDanych/TemperaturyAPI/bin/Debug/net6.0/Pomelo.EntityFrameworkCore.MySql.dll
 /Users/mateusz/Projects/OdczytDanych/TemperaturyAPI/obj/Debug/net6.0/TemperaturyAPI.csproj.CopyComplete
+/Users/mateusz/Projects/OdczytDanych/TemperaturyAPI/bin/Debug/net6.0/Npgsql.dll
+/Users/mateusz/Projects/OdczytDanych/TemperaturyAPI/bin/Debug/net6.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll

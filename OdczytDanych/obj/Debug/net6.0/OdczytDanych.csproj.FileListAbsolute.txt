@@ -38,3 +38,5 @@
 /Users/mateusz/Projects/OdczytDanych/OdczytDanych/obj/Debug/net6.0/OdczytDanych.pdb
 /Users/mateusz/Projects/OdczytDanych/OdczytDanych/obj/Debug/net6.0/OdczytDanych.genruntimeconfig.cache
 /Users/mateusz/Projects/OdczytDanych/OdczytDanych/obj/Debug/net6.0/ref/OdczytDanych.dll
+/Users/mateusz/Projects/OdczytDanych/OdczytDanych/bin/Debug/net6.0/Npgsql.dll
+/Users/mateusz/Projects/OdczytDanych/OdczytDanych/bin/Debug/net6.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
