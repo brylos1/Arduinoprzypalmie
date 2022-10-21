@@ -44,6 +44,25 @@ namespace TemperaturyAPI.Controllers
             IQueryable Temperatury = _Db.temperaturies.Where(t=> t.CzyGrzanieZalaczone==true).AsQueryable().OrderByDescending(t => t.DataPomiaru);
             return Ok(Temperatury);
         }
+        [HttpGet]
+        [Route("grzanie/cost")]
+        public ActionResult<CostDTO> Getcost(float price, int power)
+        {
+            float cost=0f;
+            int minutes = _Db.temperaturies.Where(t => t.CzyGrzanieZalaczone == true).Count();
+            float KWh = (power * (minutes / 60f))/1000;
+            cost = KWh * price;
+
+            return Ok(new CostDTO()
+            {
+               
+                costEnergy = cost,
+                usedEnergy=KWh,
+                minuty=minutes,
+                godziny=minutes/60f
+            }) ;
+     
+        }
         // /api/Palma/grzanie/between?enddate={Data końca przedziału w formacie yyyy-mm-ddThh:mm:ss}&startdate={Data początku przedziału w formacie yyyy-mm-ddThh:mm:ss}
         [HttpGet]
         [Route("grzanie/between")]
